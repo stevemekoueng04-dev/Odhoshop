@@ -13,17 +13,134 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(to bottom, #ffffff, #fff7ed);
+      background: linear-gradient(to bottom, #f5f5f5, #e8e8e8);
       color: #333;
+      overflow-x: hidden;
     }
 
+    /* ========== ANIMATIONS GLOBALES ========== */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -1000px 0;
+      }
+      100% {
+        background-position: 1000px 0;
+      }
+    }
+
+    @keyframes slideInDown {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideInUp {
+      from {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* ========== HEADER ========== */
     header {
-      background: black;
+      background: white;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      border-bottom: 4px solid #f97316;
+      border-bottom: 4px solid #FF8C00;
       position: sticky;
       top: 0;
       z-index: 50;
+      animation: slideInDown 0.6s ease-out;
     }
 
     .header-content {
@@ -38,39 +155,48 @@
     .logo {
       display: flex;
       flex-direction: column;
+      animation: fadeInLeft 0.8s ease-out;
     }
 
     .logo h1 {
       font-size: 32px;
-      background: linear-gradient(to right, #f97316, #2563eb);
+      background: linear-gradient(to right, #FF8C00, #666666);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       font-weight: bold;
+      transition: transform 0.3s ease;
+    }
+
+    .logo h1:hover {
+      transform: scale(1.05);
     }
 
     .logo p {
       font-size: 12px;
-      color: #ea580c;
+      color: #FF8C00;
       font-weight: 600;
+      animation: fadeInLeft 1s ease-out;
     }
 
     .cart-icon {
       position: relative;
       cursor: pointer;
       font-size: 28px;
-      transition: transform 0.3s;
+      animation: fadeInRight 0.8s ease-out;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .cart-icon:hover {
-      transform: scale(1.1);
+      transform: scale(1.2) rotate(10deg);
+      animation: bounce 0.6s ease-in-out;
     }
 
     .cart-count {
       position: absolute;
       top: -8px;
       right: -8px;
-      background: #2563eb;
+      background: #FF8C00;
       color: white;
       border-radius: 50%;
       width: 24px;
@@ -80,19 +206,39 @@
       justify-content: center;
       font-size: 12px;
       font-weight: bold;
+      animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
+    /* ========== HERO ========== */
     .hero {
-      background: linear-gradient(to right, #f97316, #2563eb, #f97316);
+      background: linear-gradient(135deg, #FF8C00, #666666, #FF8C00);
+      background-size: 400% 400%;
       color: white;
       padding: 60px 20px;
       text-align: center;
+      animation: slideInUp 0.8s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+      animation: shimmer 3s infinite;
     }
 
     .hero h2 {
       font-size: 48px;
       margin-bottom: 20px;
       font-weight: bold;
+      animation: fadeInDown 1s ease-out;
+      position: relative;
+      z-index: 1;
     }
 
     .hero p {
@@ -100,8 +246,12 @@
       max-width: 600px;
       margin: 0 auto;
       opacity: 0.95;
+      animation: fadeInUp 1.2s ease-out;
+      position: relative;
+      z-index: 1;
     }
 
+    /* ========== VALUES ========== */
     .values {
       max-width: 1200px;
       margin: 50px auto;
@@ -116,21 +266,42 @@
       border-radius: 8px;
       padding: 24px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      border-left: 4px solid #f97316;
+      border-left: 4px solid #FF8C00;
       text-align: center;
+      animation: fadeInUp 0.8s ease-out;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+    }
+
+    .value-card:nth-child(1) {
+      animation-delay: 0.1s;
     }
 
     .value-card:nth-child(2) {
-      border-left-color: #2563eb;
+      animation-delay: 0.2s;
+      border-left-color: #999999;
     }
 
     .value-card:nth-child(3) {
-      border-left-color: #f97316;
+      animation-delay: 0.3s;
+      border-left-color: #FF8C00;
+    }
+
+    .value-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+      border-left-width: 6px;
     }
 
     .value-card .emoji {
       font-size: 40px;
       margin-bottom: 16px;
+      display: inline-block;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .value-card:hover .emoji {
+      transform: scale(1.3) rotate(10deg);
     }
 
     .value-card h3 {
@@ -138,13 +309,20 @@
       font-weight: bold;
       margin-bottom: 8px;
       color: #333;
+      transition: color 0.3s;
+    }
+
+    .value-card:hover h3 {
+      color: #FF8C00;
     }
 
     .value-card p {
       font-size: 14px;
       color: #666;
+      transition: color 0.3s;
     }
 
+    /* ========== PRODUCTS ========== */
     .products-section {
       max-width: 1200px;
       margin: 50px auto;
@@ -157,6 +335,7 @@
       margin-bottom: 32px;
       text-align: center;
       color: #333;
+      animation: fadeInDown 0.8s ease-out;
     }
 
     .products-grid {
@@ -167,26 +346,60 @@
 
     .product-card {
       background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      border: 2px solid #fed7aa;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border: 2px solid #d4d4d4;
       overflow: hidden;
-      transition: box-shadow 0.3s;
+      animation: fadeInUp 0.8s ease-out;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
     }
 
+    .product-card:nth-child(1) { animation-delay: 0.05s; }
+    .product-card:nth-child(2) { animation-delay: 0.1s; }
+    .product-card:nth-child(3) { animation-delay: 0.15s; }
+    .product-card:nth-child(4) { animation-delay: 0.2s; }
+    .product-card:nth-child(5) { animation-delay: 0.25s; }
+    .product-card:nth-child(6) { animation-delay: 0.3s; }
+
     .product-card:hover {
-      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+      transform: translateY(-20px) scale(1.05);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.2);
+      border-color: #FF8C00;
     }
 
     .product-image {
-      background: linear-gradient(to bottom, #dbeafe, #fed7aa);
+      background: linear-gradient(135deg, #e8e8e8, #d4d4d4);
       padding: 40px;
       text-align: center;
       font-size: 80px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    .product-card:hover .product-image {
+      background: linear-gradient(135deg, #d4d4d4, #e8e8e8);
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.1);
     }
 
     .product-info {
       padding: 16px;
+      animation: fadeInUp 0.6s ease-out;
     }
 
     .product-name {
@@ -194,19 +407,26 @@
       font-weight: bold;
       color: #333;
       margin-bottom: 8px;
+      transition: color 0.3s;
+    }
+
+    .product-card:hover .product-name {
+      color: #FF8C00;
     }
 
     .product-rating {
       color: #666;
       margin-bottom: 8px;
       font-size: 14px;
+      animation: fadeInUp 0.7s ease-out;
     }
 
     .product-price {
       font-size: 24px;
       font-weight: bold;
-      color: #f97316;
+      color: #FF8C00;
       margin-bottom: 16px;
+      animation: fadeInUp 0.8s ease-out;
     }
 
     .product-quantity {
@@ -214,36 +434,53 @@
       align-items: center;
       gap: 8px;
       margin-bottom: 16px;
+      animation: fadeInUp 0.9s ease-out;
     }
 
     .quantity-btn {
-      background: #f97316;
+      background: linear-gradient(135deg, #FF8C00, #E67E00);
       color: white;
       border: none;
       width: 32px;
       height: 32px;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
-      transition: background 0.3s;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .quantity-btn:hover {
-      background: #ea580c;
+      transform: scale(1.15) rotate(5deg);
+      box-shadow: 0 4px 12px rgba(255, 140, 0, 0.4);
+    }
+
+    .quantity-btn:active {
+      transform: scale(0.95);
     }
 
     .quantity-input {
       width: 50px;
       text-align: center;
-      border: 1px solid #ddd;
+      border: 2px solid #d4d4d4;
       padding: 8px;
-      border-radius: 4px;
+      border-radius: 6px;
       font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .quantity-input:focus {
+      outline: none;
+      border-color: #FF8C00;
+      box-shadow: 0 0 8px rgba(255, 140, 0, 0.3);
     }
 
     .add-to-cart-btn {
       width: 100%;
-      background: linear-gradient(to right, #f97316, #2563eb);
+      background: linear-gradient(135deg, #FF8C00, #666666);
       color: white;
       border: none;
       padding: 12px;
@@ -251,18 +488,59 @@
       font-weight: bold;
       font-size: 16px;
       cursor: pointer;
-      transition: box-shadow 0.3s;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .add-to-cart-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
     }
 
     .add-to-cart-btn:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
 
+    .add-to-cart-btn:active {
+      transform: translateY(-1px);
+    }
+
+    .add-to-cart-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    /* ========== COMMUNITY ========== */
     .community {
-      background: linear-gradient(to right, #fed7aa, #dbeafe);
+      background: linear-gradient(135deg, #d4d4d4, #e8e8e8);
       padding: 50px 20px;
       text-align: center;
       margin: 50px 0;
+      animation: fadeInUp 0.8s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .community::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,140,0,0.1) 0%, transparent 70%);
+      animation: float 6s ease-in-out infinite;
     }
 
     .community h2 {
@@ -270,16 +548,22 @@
       font-weight: bold;
       color: #333;
       margin-bottom: 16px;
+      animation: fadeInDown 0.8s ease-out;
+      position: relative;
+      z-index: 1;
     }
 
     .community p {
       color: #555;
       margin-bottom: 24px;
       font-size: 16px;
+      animation: fadeInUp 0.9s ease-out;
+      position: relative;
+      z-index: 1;
     }
 
     .community-btn {
-      background: linear-gradient(to right, #f97316, #2563eb);
+      background: linear-gradient(135deg, #FF8C00, #666666);
       color: white;
       border: none;
       padding: 16px 32px;
@@ -287,23 +571,35 @@
       font-weight: bold;
       font-size: 16px;
       cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      z-index: 1;
+      animation: scaleIn 1s ease-out;
     }
 
     .community-btn:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transform: scale(1.1) translateY(-3px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+      animation: pulse 0.6s ease-in-out;
     }
 
+    .community-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* ========== FOOTER ========== */
     footer {
-      background: #1f2937;
+      background: #333333;
       color: white;
       padding: 32px 20px;
       text-align: center;
-      border-top: 4px solid #f97316;
+      border-top: 4px solid #FF8C00;
       font-size: 14px;
-      color: #9ca3af;
+      color: #999;
+      animation: slideInUp 0.8s ease-out;
     }
 
-    /* Modal Panier */
+    /* ========== MODAL ========== */
     .modal {
       display: none;
       position: fixed;
@@ -312,8 +608,9 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      animation: fadeIn 0.3s;
+      background-color: rgba(0,0,0,0.6);
+      animation: fadeIn 0.3s ease-out;
+      backdrop-filter: blur(4px);
     }
 
     @keyframes fadeIn {
@@ -325,27 +622,30 @@
       background-color: white;
       margin: 5% auto;
       padding: 0;
-      border-radius: 12px;
+      border-radius: 16px;
       width: 90%;
       max-width: 600px;
       max-height: 80vh;
       overflow-y: auto;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      animation: slideInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .modal-header {
-      background: linear-gradient(to right, #f97316, #2563eb);
+      background: linear-gradient(135deg, #FF8C00, #666666);
       color: white;
       padding: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-radius: 12px 12px 0 0;
+      border-radius: 16px 16px 0 0;
+      animation: slideInDown 0.4s ease-out;
     }
 
     .modal-header h2 {
       margin: 0;
       font-size: 24px;
+      animation: fadeInLeft 0.5s ease-out;
     }
 
     .close-btn {
@@ -355,10 +655,17 @@
       font-size: 28px;
       cursor: pointer;
       font-weight: bold;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: fadeInRight 0.5s ease-out;
+    }
+
+    .close-btn:hover {
+      transform: rotate(90deg) scale(1.2);
     }
 
     .modal-body {
       padding: 20px;
+      animation: fadeInUp 0.5s ease-out;
     }
 
     .cart-item {
@@ -367,9 +674,16 @@
       align-items: center;
       padding: 15px;
       border-bottom: 1px solid #eee;
-      background: #f9fafb;
+      background: #f5f5f5;
       border-radius: 8px;
       margin-bottom: 10px;
+      animation: slideInLeft 0.4s ease-out;
+      transition: all 0.3s;
+    }
+
+    .cart-item:hover {
+      background: #f0f0f0;
+      transform: translateX(5px);
     }
 
     .cart-item-info {
@@ -380,10 +694,15 @@
       font-weight: bold;
       font-size: 16px;
       margin-bottom: 5px;
+      transition: color 0.3s;
+    }
+
+    .cart-item:hover .cart-item-name {
+      color: #FF8C00;
     }
 
     .cart-item-price {
-      color: #f97316;
+      color: #FF8C00;
       font-weight: bold;
     }
 
@@ -393,38 +712,50 @@
       border-radius: 4px;
       margin: 0 10px;
       font-weight: bold;
+      animation: scaleIn 0.3s ease-out;
     }
 
     .remove-btn {
-      background: #ef4444;
+      background: linear-gradient(135deg, #ef4444, #dc2626);
       color: white;
       border: none;
       padding: 8px 12px;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .remove-btn:hover {
-      background: #dc2626;
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    }
+
+    .remove-btn:active {
+      transform: scale(0.95);
     }
 
     .empty-cart {
       text-align: center;
       padding: 40px 20px;
       color: #999;
+      animation: fadeInUp 0.5s ease-out;
     }
 
     .empty-cart-emoji {
       font-size: 60px;
       margin-bottom: 20px;
+      display: inline-block;
+      animation: bounce 2s ease-in-out infinite;
     }
 
     .cart-summary {
-      background: #f9fafb;
+      background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
       padding: 20px;
-      border-radius: 8px;
+      border-radius: 12px;
       margin-top: 20px;
+      animation: slideInUp 0.5s ease-out;
+      border: 2px solid #d4d4d4;
     }
 
     .summary-row {
@@ -432,6 +763,7 @@
       justify-content: space-between;
       margin-bottom: 10px;
       font-size: 16px;
+      animation: fadeInRight 0.4s ease-out;
     }
 
     .summary-row.total {
@@ -439,12 +771,13 @@
       padding-top: 10px;
       font-size: 20px;
       font-weight: bold;
-      color: #f97316;
+      color: #FF8C00;
+      animation: fadeInRight 0.6s ease-out;
     }
 
     .checkout-btn {
       width: 100%;
-      background: linear-gradient(to right, #22c55e, #16a34a);
+      background: linear-gradient(135deg, #25d366, #20ba58);
       color: white;
       border: none;
       padding: 16px;
@@ -453,18 +786,75 @@
       font-size: 18px;
       cursor: pointer;
       margin-top: 20px;
-      transition: box-shadow 0.3s;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+      animation: scaleIn 0.6s ease-out;
+    }
+
+    .checkout-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
     }
 
     .checkout-btn:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(37, 211, 102, 0.4);
+    }
+
+    .checkout-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .checkout-btn:active {
+      transform: translateY(-1px);
     }
 
     .checkout-btn:disabled {
       background: #ccc;
       cursor: not-allowed;
+      transform: none;
     }
 
+    /* ========== NOTIFICATION ========== */
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      animation: slideInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 2000;
+    }
+
+    .notification.error {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+
+    @keyframes slideOutDown {
+      to {
+        opacity: 0;
+        transform: translateY(100px);
+      }
+    }
+
+    .notification.hide {
+      animation: slideOutDown 0.4s ease-out forwards;
+    }
+
+    /* ========== RESPONSIVE ========== */
     @media (max-width: 768px) {
       .logo h1 {
         font-size: 24px;
@@ -539,7 +929,7 @@
   <section class="community">
     <h2>Rejoignez Notre Communauté</h2>
     <p>Partagez vos expériences et apprenez ensemble.</p>
-    <button class="community-btn">Rejoindre la Communauté</button>
+    <button class="community-btn" onclick="joinWhatsAppChannel()">💚 Rejoindre la Communauté WhatsApp</button>
   </section>
 
   <!-- Footer -->
@@ -563,6 +953,7 @@
 
   <script>
     let cart = [];
+    const SHIPPING_COST = 1000; // Frais de livraison en CFA
 
     const products = [
       { id: 1, name: 'Écouteurs Accessibles', price: 8999, emoji: '🎧', rating: 4.5 },
@@ -610,6 +1001,18 @@
       }
     }
 
+    function showNotification(message, isError = false) {
+      const notification = document.createElement('div');
+      notification.className = `notification ${isError ? 'error' : ''}`;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.classList.add('hide');
+        setTimeout(() => notification.remove(), 400);
+      }, 3000);
+    }
+
     function addToCart(productId) {
       const product = products.find(p => p.id === productId);
       const quantity = getQuantity(productId);
@@ -630,9 +1033,7 @@
       
       updateCartCount();
       document.getElementById(`qty-${productId}`).value = 1;
-      
-      // Afficher une notification
-      alert(`✅ ${product.name} ajouté au panier!`);
+      showNotification(`✅ ${product.name} ajouté au panier!`);
     }
 
     function updateCartCount() {
@@ -679,24 +1080,25 @@
         </div>
       `).join('');
 
-      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const total = subtotal + SHIPPING_COST;
 
       cartSummaryDiv.innerHTML = `
         <div class="cart-summary">
           <div class="summary-row">
             <span>Sous-total:</span>
-            <span>${total.toLocaleString('fr-FR')} CFA</span>
+            <span>${subtotal.toLocaleString('fr-FR')} CFA</span>
           </div>
           <div class="summary-row">
             <span>Frais de livraison:</span>
-            <span>Gratuit</span>
+            <span>${SHIPPING_COST.toLocaleString('fr-FR')} CFA</span>
           </div>
           <div class="summary-row total">
             <span>Total:</span>
             <span>${total.toLocaleString('fr-FR')} CFA</span>
           </div>
           <button class="checkout-btn" onclick="checkoutWhatsApp()">
-            📱 Commander via WhatsApp
+            💚 Valider la commande via WhatsApp
           </button>
         </div>
       `;
@@ -706,46 +1108,71 @@
       cart.splice(index, 1);
       updateCartCount();
       renderCart();
+      showNotification('❌ Produit supprimé du panier');
     }
 
+    // ✨ FONCTION MODIFIÉE : Envoyer la commande au WhatsApp du vendeur
     function checkoutWhatsApp() {
       if (cart.length === 0) {
-        alert('Votre panier est vide!');
+        showNotification('Votre panier est vide!', true);
         return;
       }
 
-      // Créer le message WhatsApp
-      let message = '🛒 *Commande OdhoShop*\n\n';
-      message += '*Produits commandés:*\n';
+      let message = '🛒 *NOUVELLE COMMANDE ODHOSHOP*\n\n';
+      message += '*Détails de la commande:*\n';
+      message += '━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
       
-      let total = 0;
+      let subtotal = 0;
       cart.forEach((item, index) => {
-        message += `${index + 1}. ${item.emoji} ${item.name}\n`;
-        message += `   Quantité: ${item.quantity} × ${item.price.toLocaleString('fr-FR')} CFA\n`;
+        message += `${index + 1}. ${item.emoji} *${item.name}*\n`;
+        message += `   Quantité: ${item.quantity}\n`;
+        message += `   Prix unitaire: ${item.price.toLocaleString('fr-FR')} CFA\n`;
         message += `   Sous-total: ${(item.price * item.quantity).toLocaleString('fr-FR')} CFA\n\n`;
-        total += item.price * item.quantity;
+        subtotal += item.price * item.quantity;
       });
 
-      message += `*Total: ${total.toLocaleString('fr-FR')} CFA*\n\n`;
-      message += 'Merci de confirmer cette commande! 😊';
+      const total = subtotal + SHIPPING_COST;
 
-      // Numéro WhatsApp
-      const whatsappNumber = '237673093681'; 
+      message += '━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+      message += `Sous-total: ${subtotal.toLocaleString('fr-FR')} CFA\n`;
+      message += `📦 Livraison: ${SHIPPING_COST.toLocaleString('fr-FR')} CFA\n\n`;
+      message += `💰 *TOTAL: ${total.toLocaleString('fr-FR')} CFA*\n\n`;
+      message += '━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+      message += 'Merci pour votre commande! 🙏\n';
+      message += 'Nous vous confirmerons les détails rapidement.';
 
-      // Encoder le message pour l'URL
+      // Numéro WhatsApp du vendeur
+      const whatsappNumber = '237673093681';
       const encodedMessage = encodeURIComponent(message);
-
-      // URL WhatsApp
       const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
       // Ouvrir WhatsApp
       window.open(whatsappURL, '_blank');
+      
+      // Afficher une notification
+      showNotification('✅ Redirection vers WhatsApp en cours...');
+      
+      // Vider le panier après 2 secondes
+      setTimeout(() => {
+        cart = [];
+        updateCartCount();
+        renderCart();
+        closeCart();
+        showNotification('🎉 Commande envoyée avec succès!');
+      }, 2000);
     }
 
-    // Initialiser
+    // ✨ FONCTION : Rejoindre le Channel WhatsApp
+    function joinWhatsAppChannel() {
+      const channelInviteCode = '0029Vb6begSH5JLuVn8HX11K';
+      const channelURL = `https://whatsapp.com/channel/${channelInviteCode}`;
+      
+      window.open(channelURL, '_blank');
+      showNotification('💚 Redirection vers le Channel WhatsApp OdhoShop!');
+    }
+
     renderProducts();
 
-    // Fermer le modal en cliquant en dehors
     window.onclick = function(event) {
       const modal = document.getElementById('cartModal');
       if (event.target == modal) {
