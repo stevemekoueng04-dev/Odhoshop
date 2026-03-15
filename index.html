@@ -955,13 +955,13 @@
     let cart = [];
     const SHIPPING_COST = 1000; // Frais de livraison en CFA
 
-    const products = [
-      { id: 1, name: 'Écouteurs Accessibles', price: 8999, emoji: '🎧', rating: 4.5 },
-      { id: 2, name: 'Montre pour Tous', price: 19999,<img src="${646834154_769549355932930_8677920512824867855_n.jpg}" alt="${product.name}" style="width: 100%; height: 200px; object-fit: cover;">},
-      { id: 3, name: 'Caméra Simple', price: 29999, emoji: '📷', rating: 4.7 },
-      { id: 4, name: 'Batterie Fiable', price: 4999, emoji: '🔋', rating: 4.6 },
-      { id: 6, name: 'Souris Confortable', price: 5999, emoji: '🖱️', rating: 4.4 },
-    ];
+   const products = [
+  { id: 1, name: 'Écouteurs Accessibles', price: 8999, image: 'images/ecouteur.jpg', rating: 4.5 },
+  { id: 2, name: 'Montre pour Tous', price: 19999, image: 'images/montre.jpg', rating: 4.6 },
+  { id: 3, name: 'Caméra Simple', price: 29999, image: 'images/camera.jpg', rating: 4.7 },
+  { id: 4, name: 'Batterie Fiable', price: 4999, image: 'images/batterie.jpg', rating: 4.6 },
+  { id: 6, name: 'Souris Confortable', price: 5999, image: 'images/souris.jpg', rating: 4.4 },
+];
 
     function renderProducts() {
       const grid = document.getElementById('productsGrid');
