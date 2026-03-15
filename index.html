@@ -1,605 +1,757 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OdhoShop - L'électronique pour tous</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OdhoShop - L'électronique pour tous</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(to bottom, #ffffff, #fff7ed);
+      color: #333;
+    }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+    header {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-bottom: 4px solid #f97316;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
 
-body{
-font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-background:linear-gradient(to bottom,#ffffff,#fff7ed);
-color:#333;
-}
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-/* animations générales */
+    .logo {
+      display: flex;
+      flex-direction: column;
+    }
 
-.fade-in{
-opacity:0;
-transform:translateY(40px);
-transition:all 0.8s ease;
-}
+    .logo h1 {
+      font-size: 32px;
+      background: linear-gradient(to right, #f97316, #2563eb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: bold;
+    }
 
-.fade-in.visible{
-opacity:1;
-transform:translateY(0);
-}
+    .logo p {
+      font-size: 12px;
+      color: #ea580c;
+      font-weight: 600;
+    }
 
-@keyframes heroText{
-from{opacity:0;transform:translateY(-40px)}
-to{opacity:1;transform:translateY(0)}
-}
+    .cart-icon {
+      position: relative;
+      cursor: pointer;
+      font-size: 28px;
+      transition: transform 0.3s;
+    }
 
-@keyframes productAppear{
-to{
-opacity:1;
-transform:translateY(0)
-}
-}
+    .cart-icon:hover {
+      transform: scale(1.1);
+    }
 
-@keyframes bounce{
-0%{transform:scale(1)}
-30%{transform:scale(1.3)}
-60%{transform:scale(0.9)}
-100%{transform:scale(1)}
-}
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #2563eb;
+      color: white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
 
-.cart-bounce{
-animation:bounce .5s;
-}
+    .hero {
+      background: linear-gradient(to right, #f97316, #2563eb, #f97316);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
 
-/* header */
+    .hero h2 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
 
-header{
-background:white;
-box-shadow:0 2px 10px rgba(0,0,0,.1);
-border-bottom:4px solid #f97316;
-position:sticky;
-top:0;
-z-index:50;
-}
+    .hero p {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0.95;
+    }
 
-.header-content{
-max-width:1200px;
-margin:auto;
-padding:20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+    .values {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
 
-.logo{
-display:flex;
-flex-direction:column;
-}
+    .value-card {
+      background: white;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-left: 4px solid #f97316;
+      text-align: center;
+    }
 
-.logo h1{
-font-size:32px;
-background:linear-gradient(to right,#f97316,#2563eb);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-font-weight:bold;
-}
+    .value-card:nth-child(2) {
+      border-left-color: #2563eb;
+    }
 
-.logo p{
-font-size:12px;
-color:#ea580c;
-font-weight:600;
-}
+    .value-card:nth-child(3) {
+      border-left-color: #f97316;
+    }
 
-.cart-icon{
-position:relative;
-cursor:pointer;
-font-size:28px;
-transition:transform .3s;
-}
+    .value-card .emoji {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
 
-.cart-icon:hover{
-transform:scale(1.1);
-}
+    .value-card h3 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #333;
+    }
 
-.cart-count{
-position:absolute;
-top:-8px;
-right:-8px;
-background:#2563eb;
-color:white;
-border-radius:50%;
-width:24px;
-height:24px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:12px;
-font-weight:bold;
-}
+    .value-card p {
+      font-size: 14px;
+      color: #666;
+    }
 
-/* hero */
+    .products-section {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
 
-.hero{
-background:linear-gradient(to right,#f97316,#2563eb,#f97316);
-color:white;
-padding:60px 20px;
-text-align:center;
-}
+    .products-section h2 {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 32px;
+      text-align: center;
+      color: #333;
+    }
 
-.hero h2{
-font-size:48px;
-margin-bottom:20px;
-font-weight:bold;
-animation:heroText 1s ease;
-}
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
 
-.hero p{
-font-size:18px;
-max-width:600px;
-margin:auto;
-}
+    .product-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: 2px solid #fed7aa;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
 
-/* values */
+    .product-card:hover {
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
 
-.values{
-max-width:1200px;
-margin:50px auto;
-padding:0 20px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:24px;
-}
+    .product-image {
+      background: linear-gradient(to bottom, #dbeafe, #fed7aa);
+      padding: 40px;
+      text-align: center;
+      font-size: 80px;
+    }
 
-.value-card{
-background:white;
-border-radius:8px;
-padding:24px;
-box-shadow:0 2px 8px rgba(0,0,0,.1);
-border-left:4px solid #f97316;
-text-align:center;
-}
+    .product-info {
+      padding: 16px;
+    }
 
-.value-card .emoji{
-font-size:40px;
-margin-bottom:16px;
-}
+    .product-name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 8px;
+    }
 
-/* products */
+    .product-rating {
+      color: #666;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
 
-.products-section{
-max-width:1200px;
-margin:50px auto;
-padding:0 20px;
-}
+    .product-price {
+      font-size: 24px;
+      font-weight: bold;
+      color: #f97316;
+      margin-bottom: 16px;
+    }
 
-.products-section h2{
-font-size:32px;
-margin-bottom:32px;
-text-align:center;
-}
+    .product-quantity {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
 
-.products-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:24px;
-}
+    .quantity-btn {
+      background: #f97316;
+      color: white;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
 
-.product-card{
-background:white;
-border-radius:8px;
-box-shadow:0 2px 8px rgba(0,0,0,.1);
-border:2px solid #fed7aa;
-overflow:hidden;
-transition:transform .3s,box-shadow .3s;
-opacity:0;
-transform:translateY(40px);
-animation:productAppear .6s forwards;
-}
+    .quantity-btn:hover {
+      background: #ea580c;
+    }
 
-.product-card:hover{
-transform:translateY(-10px) scale(1.02);
-box-shadow:0 10px 20px rgba(0,0,0,.15);
-}
+    .quantity-input {
+      width: 50px;
+      text-align: center;
+      border: 1px solid #ddd;
+      padding: 8px;
+      border-radius: 4px;
+      font-size: 16px;
+    }
 
-.product-image{
-background:linear-gradient(to bottom,#dbeafe,#fed7aa);
-padding:40px;
-text-align:center;
-font-size:80px;
-}
+    .add-to-cart-btn {
+      width: 100%;
+      background: linear-gradient(to right, #f97316, #2563eb);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: box-shadow 0.3s;
+    }
 
-.product-info{
-padding:16px;
-}
+    .add-to-cart-btn:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
 
-.product-name{
-font-size:18px;
-font-weight:bold;
-margin-bottom:8px;
-}
+    .community {
+      background: linear-gradient(to right, #fed7aa, #dbeafe);
+      padding: 50px 20px;
+      text-align: center;
+      margin: 50px 0;
+    }
 
-.product-price{
-font-size:24px;
-font-weight:bold;
-color:#f97316;
-margin-bottom:16px;
-}
+    .community h2 {
+      font-size: 32px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 16px;
+    }
 
-.product-rating{
-font-size:14px;
-margin-bottom:8px;
-}
+    .community p {
+      color: #555;
+      margin-bottom: 24px;
+      font-size: 16px;
+    }
 
-/* quantity */
+    .community-btn {
+      background: linear-gradient(to right, #f97316, #2563eb);
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
 
-.product-quantity{
-display:flex;
-align-items:center;
-gap:8px;
-margin-bottom:16px;
-}
+    .community-btn:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
 
-.quantity-btn{
-background:#f97316;
-color:white;
-border:none;
-width:32px;
-height:32px;
-border-radius:4px;
-cursor:pointer;
-}
+    footer {
+      background: #1f2937;
+      color: white;
+      padding: 32px 20px;
+      text-align: center;
+      border-top: 4px solid #f97316;
+      font-size: 14px;
+      color: #9ca3af;
+    }
 
-.quantity-input{
-width:50px;
-text-align:center;
-border:1px solid #ddd;
-padding:8px;
-border-radius:4px;
-}
+    /* Modal Panier */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      animation: fadeIn 0.3s;
+    }
 
-/* button animation */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
-.add-to-cart-btn{
-width:100%;
-background:linear-gradient(to right,#f97316,#2563eb);
-color:white;
-border:none;
-padding:12px;
-border-radius:8px;
-font-weight:bold;
-font-size:16px;
-cursor:pointer;
-position:relative;
-overflow:hidden;
-}
+    .modal-content {
+      background-color: white;
+      margin: 5% auto;
+      padding: 0;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
 
-.add-to-cart-btn::after{
-content:"";
-position:absolute;
-width:100%;
-height:100%;
-left:-100%;
-top:0;
-background:rgba(255,255,255,.3);
-transition:left .4s;
-}
+    .modal-header {
+      background: linear-gradient(to right, #f97316, #2563eb);
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 12px 12px 0 0;
+    }
 
-.add-to-cart-btn:hover::after{
-left:100%;
-}
+    .modal-header h2 {
+      margin: 0;
+      font-size: 24px;
+    }
 
-/* community */
+    .close-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-.community{
-background:linear-gradient(to right,#fed7aa,#dbeafe);
-padding:50px 20px;
-text-align:center;
-margin:50px 0;
-}
+    .modal-body {
+      padding: 20px;
+    }
 
-/* footer */
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      background: #f9fafb;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
 
-footer{
-background:#1f2937;
-color:#9ca3af;
-padding:32px 20px;
-text-align:center;
-border-top:4px solid #f97316;
-}
+    .cart-item-info {
+      flex: 1;
+    }
 
-/* modal */
+    .cart-item-name {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
 
-.modal{
-display:none;
-position:fixed;
-z-index:1000;
-left:0;
-top:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.5);
-}
+    .cart-item-price {
+      color: #f97316;
+      font-weight: bold;
+    }
 
-.modal-content{
-background:white;
-margin:5% auto;
-border-radius:12px;
-width:90%;
-max-width:600px;
-max-height:80vh;
-overflow:auto;
-}
+    .cart-item-quantity {
+      background: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      margin: 0 10px;
+      font-weight: bold;
+    }
 
-.modal-header{
-background:linear-gradient(to right,#f97316,#2563eb);
-color:white;
-padding:20px;
-display:flex;
-justify-content:space-between;
-}
+    .remove-btn {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-.modal-body{
-padding:20px;
-}
+    .remove-btn:hover {
+      background: #dc2626;
+    }
 
-.cart-item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px;
-border-bottom:1px solid #eee;
-}
+    .empty-cart {
+      text-align: center;
+      padding: 40px 20px;
+      color: #999;
+    }
 
-.checkout-btn{
-width:100%;
-background:linear-gradient(to right,#22c55e,#16a34a);
-color:white;
-border:none;
-padding:16px;
-border-radius:8px;
-font-weight:bold;
-font-size:18px;
-cursor:pointer;
-margin-top:20px;
-}
+    .empty-cart-emoji {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
 
-</style>
+    .cart-summary {
+      background: #f9fafb;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .summary-row.total {
+      border-top: 2px solid #ddd;
+      padding-top: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #f97316;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: linear-gradient(to right, #22c55e, #16a34a);
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: box-shadow 0.3s;
+    }
+
+    .checkout-btn:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .checkout-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+      .logo h1 {
+        font-size: 24px;
+      }
+
+      .hero h2 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .products-section h2 {
+        font-size: 24px;
+      }
+
+      .modal-content {
+        width: 95%;
+        margin: 20% auto;
+      }
+    }
+  </style>
 </head>
-
 <body>
-
-<header>
-<div class="header-content">
-<div class="logo">
-<h1>OdhoShop</h1>
-<p>L'électronique pour tous</p>
-</div>
-
-<div class="cart-icon" onclick="openCart()">
-🛒
-<span class="cart-count" id="cartCount" style="display:none">0</span>
-</div>
-</div>
-</header>
-
-<section class="hero">
-<h2>Bienvenue chez OdhoShop</h2>
-<p>La technologie accessible à tous.</p>
-</section>
-
-<section class="values fade-in">
-<div class="value-card">
-<div class="emoji">👥</div>
-<h3>Pour Tous</h3>
-<p>Peu importe votre budget.</p>
-</div>
-
-<div class="value-card">
-<div class="emoji">⚡</div>
-<h3>Qualité Garantie</h3>
-<p>Produits testés et vérifiés.</p>
-</div>
-
-<div class="value-card">
-<div class="emoji">❤️</div>
-<h3>Transparence</h3>
-<p>Prix clairs.</p>
-</div>
-</section>
-
-<section class="products-section fade-in">
-<h2>Tous nos Produits</h2>
-<div class="products-grid" id="productsGrid"></div>
-</section>
-
-<section class="community fade-in">
-<h2>Rejoignez notre communauté</h2>
-<button class="add-to-cart-btn">Rejoindre</button>
-</section>
-
-<footer>
-© 2026 OdhoShop
-</footer>
-
-<div id="cartModal" class="modal">
-<div class="modal-content">
-
-<div class="modal-header">
-<h2>🛒 Mon Panier</h2>
-<button onclick="closeCart()">X</button>
-</div>
-
-<div class="modal-body">
-<div id="cartItems"></div>
-<div id="cartSummary"></div>
-</div>
-
-</div>
-</div>
-
-<script>
-
-let cart=[];
-
-const products=[
-{id:1,name:'Écouteurs',price:8999,emoji:'🎧',rating:4.5},
-{id:2,name:'Montre',price:19999,emoji:'⌚',rating:4.8},
-{id:3,name:'Caméra',price:29999,emoji:'📷',rating:4.7},
-{id:4,name:'Batterie',price:4999,emoji:'🔋',rating:4.6},
-{id:5,name:'Clavier',price:12999,emoji:'⌨️',rating:4.9},
-{id:6,name:'Souris',price:5999,emoji:'🖱️',rating:4.4}
-];
-
-function renderProducts(){
-
-const grid=document.getElementById("productsGrid");
-
-grid.innerHTML=products.map((p,i)=>`
-
-<div class="product-card" style="animation-delay:${i*0.1}s">
-
-<div class="product-image">${p.emoji}</div>
-
-<div class="product-info">
-
-<div class="product-name">${p.name}</div>
-
-<div class="product-rating">⭐ ${p.rating}</div>
-
-<div class="product-price">${p.price} CFA</div>
-
-<div class="product-quantity">
-
-<button class="quantity-btn" onclick="dec(${p.id})">-</button>
-
-<input id="q${p.id}" class="quantity-input" type="number" value="1">
-
-<button class="quantity-btn" onclick="inc(${p.id})">+</button>
-
-</div>
-
-<button class="add-to-cart-btn" onclick="add(${p.id})">
-
-Ajouter au panier
-
-</button>
-
-</div>
-
-</div>
-
-`).join("");
-
-}
-
-function inc(id){
-let i=document.getElementById("q"+id);
-i.value=parseInt(i.value)+1;
-}
-
-function dec(id){
-let i=document.getElementById("q"+id);
-if(i.value>1)i.value--;
-}
-
-function add(id){
-
-let p=products.find(x=>x.id===id);
-let q=parseInt(document.getElementById("q"+id).value);
-
-let e=cart.find(x=>x.id===id);
-
-if(e)e.quantity+=q;
-else cart.push({...p,quantity:q});
-
-updateCart();
-
-document.querySelector(".cart-icon").classList.add("cart-bounce");
-
-setTimeout(()=>{
-document.querySelector(".cart-icon").classList.remove("cart-bounce")
-},500)
-
-}
-
-function updateCart(){
-
-let c=cart.reduce((t,i)=>t+i.quantity,0);
-
-let el=document.getElementById("cartCount");
-
-el.textContent=c;
-
-el.style.display=c?"flex":"none";
-
-}
-
-function openCart(){
-document.getElementById("cartModal").style.display="block";
-renderCart();
-}
-
-function closeCart(){
-document.getElementById("cartModal").style.display="none";
-}
-
-function renderCart(){
-
-let div=document.getElementById("cartItems");
-
-if(!cart.length){
-div.innerHTML="Panier vide";
-return;
-}
-
-div.innerHTML=cart.map((i,k)=>`
-
-<div class="cart-item">
-
-<div>${i.name}</div>
-
-<div>${i.quantity}</div>
-
-<button onclick="removeItem(${k})">X</button>
-
-</div>
-
-`).join("");
-
-}
-
-function removeItem(i){
-cart.splice(i,1);
-updateCart();
-renderCart();
-}
-
-function revealOnScroll(){
-
-document.querySelectorAll(".fade-in").forEach(el=>{
-
-let top=el.getBoundingClientRect().top;
-
-if(top<window.innerHeight-100){
-
-el.classList.add("visible");
-
-}
-
-})
-
-}
-
-window.addEventListener("scroll",revealOnScroll);
-
-renderProducts();
-revealOnScroll();
-
-</script>
-
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <h1>OdhoShop</h1>
+        <p>L'électronique pour tous</p>
+      </div>
+      <div class="cart-icon" onclick="openCart()">
+        🛒
+        <span class="cart-count" id="cartCount" style="display: none;">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero">
+    <h2>Bienvenue chez OdhoShop</h2>
+    <p>Nous croyons que la technologie doit être accessible à chacun d'entre nous. Chez OdhoShop, pas de jargon compliqué, pas de prix cachés. Juste de bons produits, à des prix justes, pour tous.</p>
+  </section>
+
+  <!-- Values Section -->
+  <section class="values">
+    <div class="value-card">
+      <div class="emoji">👥</div>
+      <h3>Pour Tous</h3>
+      <p>Peu importe votre budget, il y a quelque chose pour vous.</p>
+    </div>
+    <div class="value-card">
+      <div class="emoji">⚡</div>
+      <h3>Qualité Garantie</h3>
+      <p>Tous nos produits sont testés et vérifiés.</p>
+    </div>
+    <div class="value-card">
+      <div class="emoji">❤️</div>
+      <h3>Transparence</h3>
+      <p>Pas de surprises. Prix clairs et honnêtes.</p>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products-section">
+    <h2>Tous nos Produits</h2>
+    <div class="products-grid" id="productsGrid"></div>
+  </section>
+
+  <!-- Community Section -->
+  <section class="community">
+    <h2>Rejoignez Notre Communauté</h2>
+    <p>Partagez vos expériences et apprenez ensemble.</p>
+    <button class="community-btn">Rejoindre la Communauté</button>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 OdhoShop. Tous droits réservés.</p>
+  </footer>
+
+  <!-- Modal Panier -->
+  <div id="cartModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>🛒 Mon Panier</h2>
+        <button class="close-btn" onclick="closeCart()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="cartItems"></div>
+        <div id="cartSummary"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+
+    const products = [
+      { id: 1, name: 'Écouteurs Accessibles', price: 8999, emoji: '🎧', rating: 4.5 },
+      { id: 2, name: 'Montre pour Tous', price: 19999, emoji: '⌚', rating: 4.8 },
+      { id: 3, name: 'Caméra Simple', price: 29999, emoji: '📷', rating: 4.7 },
+      { id: 4, name: 'Batterie Fiable', price: 4999, emoji: '🔋', rating: 4.6 },
+      { id: 5, name: 'Clavier Durable', price: 12999, emoji: '⌨️', rating: 4.9 },
+      { id: 6, name: 'Souris Confortable', price: 5999, emoji: '🖱️', rating: 4.4 },
+    ];
+
+    function renderProducts() {
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = products.map((product) => `
+        <div class="product-card">
+          <div class="product-image">${product.emoji}</div>
+          <div class="product-info">
+            <div class="product-name">${product.name}</div>
+            <div class="product-rating">⭐ ${product.rating}/5</div>
+            <div class="product-price">${product.price.toLocaleString('fr-FR')} CFA</div>
+            <div class="product-quantity">
+              <button class="quantity-btn" onclick="decreaseQuantity(${product.id})">−</button>
+              <input type="number" class="quantity-input" id="qty-${product.id}" value="1" min="1" max="99">
+              <button class="quantity-btn" onclick="increaseQuantity(${product.id})">+</button>
+            </div>
+            <button class="add-to-cart-btn" onclick="addToCart(${product.id})">Ajouter au panier</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function getQuantity(productId) {
+      const input = document.getElementById(`qty-${productId}`);
+      return parseInt(input.value) || 1;
+    }
+
+    function increaseQuantity(productId) {
+      const input = document.getElementById(`qty-${productId}`);
+      input.value = parseInt(input.value) + 1;
+    }
+
+    function decreaseQuantity(productId) {
+      const input = document.getElementById(`qty-${productId}`);
+      if (parseInt(input.value) > 1) {
+        input.value = parseInt(input.value) - 1;
+      }
+    }
+
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      const quantity = getQuantity(productId);
+      
+      const existingItem = cart.find(item => item.id === productId);
+      
+      if (existingItem) {
+        existingItem.quantity += quantity;
+      } else {
+        cart.push({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          emoji: product.emoji,
+          quantity: quantity
+        });
+      }
+      
+      updateCartCount();
+      document.getElementById(`qty-${productId}`).value = 1;
+      
+      // Afficher une notification
+      alert(`✅ ${product.name} ajouté au panier!`);
+    }
+
+    function updateCartCount() {
+      const count = cart.reduce((total, item) => total + item.quantity, 0);
+      const cartCountElement = document.getElementById('cartCount');
+      cartCountElement.textContent = count;
+      cartCountElement.style.display = count > 0 ? 'flex' : 'none';
+    }
+
+    function openCart() {
+      document.getElementById('cartModal').style.display = 'block';
+      renderCart();
+    }
+
+    function closeCart() {
+      document.getElementById('cartModal').style.display = 'none';
+    }
+
+    function renderCart() {
+      const cartItemsDiv = document.getElementById('cartItems');
+      const cartSummaryDiv = document.getElementById('cartSummary');
+
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = `
+          <div class="empty-cart">
+            <div class="empty-cart-emoji">🛒</div>
+            <p>Votre panier est vide</p>
+            <p style="font-size: 14px; margin-top: 10px;">Ajoutez des produits pour commencer!</p>
+          </div>
+        `;
+        cartSummaryDiv.innerHTML = '';
+        return;
+      }
+
+      cartItemsDiv.innerHTML = cart.map((item, index) => `
+        <div class="cart-item">
+          <div style="font-size: 32px; margin-right: 10px;">${item.emoji}</div>
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-price">${item.price.toLocaleString('fr-FR')} CFA × ${item.quantity}</div>
+          </div>
+          <div class="cart-item-quantity">${item.quantity}</div>
+          <button class="remove-btn" onclick="removeFromCart(${index})">Supprimer</button>
+        </div>
+      `).join('');
+
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+      cartSummaryDiv.innerHTML = `
+        <div class="cart-summary">
+          <div class="summary-row">
+            <span>Sous-total:</span>
+            <span>${total.toLocaleString('fr-FR')} CFA</span>
+          </div>
+          <div class="summary-row">
+            <span>Frais de livraison:</span>
+            <span>Gratuit</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total:</span>
+            <span>${total.toLocaleString('fr-FR')} CFA</span>
+          </div>
+          <button class="checkout-btn" onclick="checkoutWhatsApp()">
+            📱 Commander via WhatsApp
+          </button>
+        </div>
+      `;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartCount();
+      renderCart();
+    }
+
+    function checkoutWhatsApp() {
+      if (cart.length === 0) {
+        alert('Votre panier est vide!');
+        return;
+      }
+
+      // Créer le message WhatsApp
+      let message = '🛒 *Commande OdhoShop*\n\n';
+      message += '*Produits commandés:*\n';
+      
+      let total = 0;
+      cart.forEach((item, index) => {
+        message += `${index + 1}. ${item.emoji} ${item.name}\n`;
+        message += `   Quantité: ${item.quantity} × ${item.price.toLocaleString('fr-FR')} CFA\n`;
+        message += `   Sous-total: ${(item.price * item.quantity).toLocaleString('fr-FR')} CFA\n\n`;
+        total += item.price * item.quantity;
+      });
+
+      message += `*Total: ${total.toLocaleString('fr-FR')} CFA*\n\n`;
+      message += 'Merci de confirmer cette commande! 😊';
+
+      // Numéro WhatsApp
+      const whatsappNumber = '237673093681'; 
+
+      // Encoder le message pour l'URL
+      const encodedMessage = encodeURIComponent(message);
+
+      // URL WhatsApp
+      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+      // Ouvrir WhatsApp
+      window.open(whatsappURL, '_blank');
+    }
+
+    // Initialiser
+    renderProducts();
+
+    // Fermer le modal en cliquant en dehors
+    window.onclick = function(event) {
+      const modal = document.getElementById('cartModal');
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
 </body>
 </html>
